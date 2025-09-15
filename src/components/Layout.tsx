@@ -1,10 +1,16 @@
-import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Button } from '@heroui/react'
-import { Link, Outlet } from 'react-router-dom'
+import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Button, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Avatar } from '@heroui/react'
+import { Link, Outlet, useNavigate } from 'react-router-dom'
 import { useTheme } from '../theme/ThemeProvider'
 import { Sun, Moon, SunHorizon, ArrowClockwise } from 'phosphor-react'
+import { useAuth } from '../auth/AuthContext'
+import { auth } from '../firebase'
+import { signOut } from 'firebase/auth'
 
 export default function Layout() {
   const { cycleTheme, theme } = useTheme()
+  const { user } = useAuth()
+  const navigate = useNavigate()
+
   return (
     <div className="min-h-dvh bg-background text-foreground flex flex-col">
       <Navbar maxWidth="xl">
@@ -32,7 +38,39 @@ export default function Layout() {
             </Button>
           </NavbarItem>
           <NavbarItem>
-            <Button as={Link} to="/login" color="primary">Login</Button>
+            {user ? (
+              <Dropdown placement="bottom-end">
+                <DropdownTrigger>
+                  <Button isIconOnly variant="light" className="rounded-full p-0 min-w-0 size-9">
+                    <Avatar
+                      as="span"
+                      size="sm"
+                      src={user.photoURL ?? undefined}
+                      name={user.displayName ?? (user.email ?? 'User')}
+                      className="ring-1 ring-default-200"
+                    />
+                  </Button>
+                </DropdownTrigger>
+                <DropdownMenu
+                  aria-label="User menu"
+                  onAction={(key) => {
+                    if (key === 'dashboard') navigate('/dashboard')
+                    if (key === 'logout') void signOut(auth)
+                  }}
+                >
+                  <DropdownItem key="header" isReadOnly className="h-14">
+                    <div className="flex flex-col">
+                      <span className="text-sm font-medium">{user.displayName ?? 'Account'}</span>
+                      <span className="text-xs text-default-500">{user.email}</span>
+                    </div>
+                  </DropdownItem>
+                  <DropdownItem key="dashboard">Dashboard</DropdownItem>
+                  <DropdownItem key="logout" color="danger">Sign out</DropdownItem>
+                </DropdownMenu>
+              </Dropdown>
+            ) : (
+              <Button as={Link} to="/login" color="primary">Login</Button>
+            )}
           </NavbarItem>
         </NavbarContent>
       </Navbar>
