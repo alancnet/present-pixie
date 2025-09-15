@@ -17,7 +17,7 @@ export default function Layout() {
         <NavbarBrand>
           <Link to="/" className="font-bold flex items-center gap-2">
             <ArrowClockwise size={18} />
-            GenericApp
+            Present Pixie
           </Link>
         </NavbarBrand>
         <NavbarContent justify="end">
@@ -78,7 +78,7 @@ export default function Layout() {
         <Outlet />
       </main>
       <footer className="px-6 md:px-10 py-6 text-center text-sm text-default-500">
-        © {new Date().getFullYear()} GenericApp. All rights reserved.
+        © {new Date().getFullYear()} Present Pixie. All rights reserved.
       </footer>
     </div>
   )
