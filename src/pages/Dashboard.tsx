@@ -1,4 +1,4 @@
-import { Button, Card, CardBody, Input, Textarea, Slider } from '@heroui/react'
+import { Button, Card, CardBody, Input, Textarea, Slider, Link } from '@heroui/react'
 import { auth, db } from '../firebase'
 import { signOut } from 'firebase/auth'
 import { collection, addDoc, serverTimestamp, query, where, orderBy, onSnapshot } from 'firebase/firestore'
