@@ -1,0 +1,23 @@
+{
+  "name": "present-pixie-functions",
+  "type": "module",
+  "private": true,
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "serve": "npm run build && firebase emulators:start --only functions,firestore,hosting --project demo-present-pixie",
+    "deploy": "firebase deploy --only functions,firestore,hosting"
+  },
+  "dependencies": {
+    "firebase-admin": "^12.7.0",
+    "firebase-functions": "^6.0.1",
+    "node-fetch": "^3.3.2"
+  },
+  "devDependencies": {
+    "typescript": "~5.8.3"
+  }
+}
+
