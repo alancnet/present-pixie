@@ -1,5 +1,5 @@
 import { initializeApp, type FirebaseApp } from 'firebase/app'
-import { getAuth, type Auth, GoogleAuthProvider } from 'firebase/auth'
+import { getAuth, type Auth, GoogleAuthProvider, signInAnonymously } from 'firebase/auth'
 import { getFirestore, type Firestore } from 'firebase/firestore'
 
 // Read config from Vite env (define in .env.local)
@@ -17,4 +17,4 @@ const auth: Auth = getAuth(app)
 const db: Firestore = getFirestore(app)
 const googleProvider = new GoogleAuthProvider()
 
-export { app, auth, db, googleProvider }
+export { app, auth, db, googleProvider, signInAnonymously }

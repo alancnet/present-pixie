@@ -13,6 +13,7 @@ import Terms from './pages/Terms'
 import Contact from './pages/Contact'
 import Dashboard from './pages/Dashboard'
 import Login from './pages/Login'
+import RecipientPage from './pages/Recipient'
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,14 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <Dashboard />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: '/recipients/:id',
+        element: (
+          <ProtectedRoute>
+            <RecipientPage />
           </ProtectedRoute>
         ),
       },
