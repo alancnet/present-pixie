@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from 'react'
 import { auth } from '../firebase'
-import { onAuthStateChanged, type User } from 'firebase/auth'
+import { onAuthStateChanged, signInAnonymously, type User } from 'firebase/auth'
 
 interface AuthContextValue {
   user: User | null
@@ -18,6 +18,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setUser(u)
       setLoading(false)
     })
+    // Ensure anonymous auth for no-account use
+    if (!auth.currentUser) {
+      void signInAnonymously(auth).catch(() => {
+        // Ignore; UI will still function without user state if config is missing
+      })
+    }
     return () => unsub()
   }, [])
 
